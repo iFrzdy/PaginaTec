@@ -1,0 +1,30 @@
+<html>
+    <style>
+        h2 {
+      text-align: center;
+    }
+    </style>
+    <body>
+        <h2 id="bienvenida"></h2>
+        <script>
+            const usuario = localStorage.getItem("usuario");
+          
+            if (usuario) {
+              document.getElementById("bienvenida").textContent = "Bienvenido, " + usuario;
+            } else {
+              document.getElementById("bienvenida").textContent = "No has iniciado sesión.";
+            }
+          </script>
+          <button onclick="cerrarSesion()">Cerrar sesión</button>
+
+          <script>
+            localStorage.clear();
+
+            function cerrarSesion() {
+              localStorage.removeItem("usuario");
+              window.location.href = "registro.html";
+            }
+          </script>
+          
+    </body>
+</html>
