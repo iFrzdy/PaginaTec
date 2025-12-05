@@ -1,0 +1,183 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TÉCNICA N°1 O.E.A</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+    }
+
+    header {
+      background-color: #580303;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      z-index: 3;
+    }
+
+    .encabezado-izquierda {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .boton-menu {
+      background-color: transparent;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0;
+      margin: 0;
+    }
+
+    .titulo {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .boton-login {
+      background-color: #400202;
+      color: white;
+      border: none;
+      font-weight: bold;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .boton-login:hover {
+      background-color: #6f0a0a;
+    }
+
+    .menu-lateral {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background-color: #6d0606;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      padding-top: 80px;
+      transition: left 0.3s ease;
+      z-index: 2;
+    }
+
+    .menu-lateral.activo {
+      left: 0;
+    }
+
+    .menu-lateral a {
+      padding: 20px;
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      border-bottom: 1px solid #400202;
+    }
+
+    .menu-lateral a:hover {
+      background-color: #6f0a0a;
+    }
+
+    #contenido {
+      padding: 120px 5% 40px;
+      max-width: 1200px;
+      margin: auto;
+      box-sizing: border-box;
+    }
+
+    .seccion {
+      margin-bottom: 40px;
+    }
+
+    .seccion h2 {
+      color: #580303;
+      margin-bottom: 10px;
+    }
+
+    .seccion p {
+      line-height: 1.6;
+      font-size: 1em;
+      color: #333;
+    }
+
+    .oculto {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="encabezado-izquierda">
+      <button class="boton-menu" onclick="mostrarMenu()">☰</button>
+      <h1 class="titulo">TECNICA N°1 O.E.A</h1>
+    </div>
+    <a href="registro.html" id="enlaceUsuario" class="boton-login">Ingresar</a>
+  </header>
+
+  <div id="menu" class="menu-lateral">
+    <a href="#" onclick="mostrarMenu(),cargarPagina('body.html')">Inicio</a>
+    <a href="#" onclick="mostrarMenu(),cargarPagina('expo.html')">Expo Técnica 🧪</a>
+    <a href="#" onclick="mostrarMenu(),cargarPagina('modalidades.html')">Modalidades</a>
+    <a href="#" onclick="mostrarMenu(),cargarPagina('contacto.html')">Nosotros</a>
+    <a href="#" id="linkExclusivo" class="oculto" onclick="mostrarMenu(),cargarPagina('exclusivo.html')">Exclusivo 🔒</a>
+    <a href="#" onclick="mostrarMenu()">✖️ Cerrar menú</a>
+  </div>
+
+  <div id="contenido"></div>
+
+  <script>
+    function mostrarMenu() {
+      const menu = document.getElementById("menu");
+      menu.classList.toggle("activo");
+    }
+
+    const usuario = localStorage.getItem("usuario");
+    const enlace = document.getElementById("enlaceUsuario");
+    const linkExclusivo = document.getElementById("linkExclusivo");
+
+    if (usuario) {
+      enlace.textContent = usuario;
+      enlace.href = "perfil.html";
+      linkExclusivo.classList.remove("oculto");
+    }
+
+    function cargarPagina(ruta) {
+      fetch(ruta)
+        .then(respuesta => respuesta.text())
+        .then(html => {
+          document.getElementById("contenido").innerHTML = html;
+        })
+        .catch(error => {
+          document.getElementById("contenido").innerHTML = "<p>Error al cargar la página.</p>";
+        });
+    }
+
+    window.onload = () => {
+      cargarPagina("body.html");
+    };
+  </script>
+
+</body>
+
+<p></p>
+<footer style="text-align: center; padding: 1px; background: #a8202027;">
+  &copy; 2025 Técnica N°1 O.E.A. Todos los derechos reservados.
+</footer>
+
+</html>
